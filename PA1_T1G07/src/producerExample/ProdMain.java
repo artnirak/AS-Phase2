@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ProducerExample;
+package producerExample;
 
-import static ProducerExample.KafkaProd.runProducer;
+import static producerExample.KafkaProd.runProducer;
 
 /**
  *
