@@ -1,0 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ProducerExample;
+
+import static ProducerExample.KafkaProd.runProducer;
+
+/**
+ *
+ * @author pedro
+ */
+public class ProdMain {
+
+    public static void main(String... args) throws Exception {
+        if (args.length == 0) {
+            runProducer(5);
+        } else {
+            runProducer(Integer.parseInt(args[0]));
+        }
+    }
+}
