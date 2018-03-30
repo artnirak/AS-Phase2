@@ -25,8 +25,8 @@ public class CollectEntity {
         processData("STATUS.txt");
     }
 
-    private static void sendData(String data) {
-        String topicName = "SimpleProducerTopic";
+    private static void produceData(String data) {
+        String topicName = "test";
         String key = "Key1";
 
         Properties props = new Properties();
@@ -35,7 +35,7 @@ public class CollectEntity {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
-            ProducerRecord<String, String> record = new ProducerRecord<>(topicName, key, data);
+            ProducerRecord<String, String> record = new ProducerRecord<>(topicName, data);
             producer.send(record);
         }
     }
@@ -47,7 +47,7 @@ public class CollectEntity {
 
             String st;
             while ((st = br.readLine()) != null) {
-                //sendData(st);
+                produceData(st);
                 System.out.println(st);
             }   
         } catch (FileNotFoundException e) {
