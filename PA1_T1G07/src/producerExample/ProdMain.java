@@ -5,7 +5,8 @@
  */
 package producerExample;
 
-import static producerExample.KafkaProd.runProducer;
+import collectentity.CollectEntity;
+//import static producerExample.KafkaProd.runProducer;
 
 /**
  *
@@ -14,10 +15,12 @@ import static producerExample.KafkaProd.runProducer;
 public class ProdMain {
 
     public static void main(String... args) throws Exception {
+        /*
         if (args.length == 0) {
             runProducer(5);
         } else {
             runProducer(Integer.parseInt(args[0]));
-        }
+        }*/
+        CollectEntity.main();
     }
 }
