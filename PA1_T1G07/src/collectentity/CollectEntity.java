@@ -1,3 +1,4 @@
+
 package collectentity;
 
 import java.io.BufferedReader;
@@ -25,6 +26,7 @@ public class CollectEntity {
         processData("STATUS.txt");
     }
 
+    
     private static void produceData(String data) {
         String topicName = "test";
         String key = "Key1";
@@ -39,7 +41,8 @@ public class CollectEntity {
             producer.send(record);
         }
     }
-
+    
+    
     private static void processData(String filename) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
 

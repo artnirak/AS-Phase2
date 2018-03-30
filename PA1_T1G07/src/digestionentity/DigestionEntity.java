@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package digestionentity;
 
 import org.apache.kafka.clients.consumer.*;
@@ -21,7 +17,7 @@ public class DigestionEntity {
 
     public static void main() {
         consumeData();
-        
+
     }
 
     private final static String TOPIC = "test";
@@ -52,11 +48,11 @@ public class DigestionEntity {
         try (Consumer<Long, String> consumer = createConsumer()) {
             final int giveUp = 100;
             int noRecordsCount = 0;
-            
+
             while (true) {
                 final ConsumerRecords<Long, String> consumerRecords
                         = consumer.poll(1000);
-                
+
                 if (consumerRecords.count() == 0) {
                     noRecordsCount++;
                     if (noRecordsCount > giveUp) {
@@ -70,15 +66,28 @@ public class DigestionEntity {
                     System.out.printf("Consumer Record:(%d, %s, %d, %d)\n",
                             record.key(), record.value(),
                             record.partition(), record.offset());
+                    String enrichedData = enrichData(record.value());
                 });
-                
+
                 consumer.commitAsync();
             }
         }
         System.out.println("DONE");
     }
-    
-    
+
+    private static String enrichData(String data) {
+        String[] s;
+        StringBuilder sb = new StringBuilder();
+        s = data.split(" ");
+        for (String parameter : s) {
+            if (parameter.matches("00|01|02"))
+                sb.append("XX-YY-").append(String.format("%02d", Integer.parseInt(s[0]))).append(" ");
+            sb.append(parameter).append(" ");
+        }
+        if (s[2].equals("01"))
+            sb.append("100");
+        return sb.toString().trim();
+    }
 }
 
 //criar consumer que pega nos dados enviados pelo collect e processa-os "enrichment", o que é o car_reg ?

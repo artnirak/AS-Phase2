@@ -6,6 +6,7 @@
 package producerExample;
 
 import collectentity.CollectEntity;
+import digestionentity.DigestionEntity;
 //import static producerExample.KafkaProd.runProducer;
 
 /**
@@ -22,5 +23,6 @@ public class ProdMain {
             runProducer(Integer.parseInt(args[0]));
         }*/
         CollectEntity.main();
+        DigestionEntity.main();
     }
 }
