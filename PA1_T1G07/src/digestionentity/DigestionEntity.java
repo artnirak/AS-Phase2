@@ -5,6 +5,12 @@
  */
 package digestionentity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.LongDeserializer;
@@ -12,15 +18,23 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.Collections;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author pedro
  */
 public class DigestionEntity {
+    
+    private DigestionEntityUI deui;
 
-    public static void main() {
-        consumeData();
+    public void main() {
+        //consumeData();
+        deui = new DigestionEntityUI();
+        processData("HB.txt");
+        processData("SPEED.txt");
+        processData("STATUS.txt");
 
     }
 
@@ -91,6 +105,25 @@ public class DigestionEntity {
         if (s[2].equals("01"))
             sb.append("100");
         return sb.toString().trim();
+    }
+    
+    //TESTING
+    private void processData(String filename) {
+        File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+            String st;
+            while ((st = br.readLine()) != null) {
+                deui.appendReceived(st);
+                deui.appendSent(enrichData(st));
+            }   
+        } catch (FileNotFoundException e) {
+            System.err.println("File " + filename + " not found.");
+            System.exit(1);
+        } catch (IOException ex) {
+            Logger.getLogger(DigestionEntity.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 

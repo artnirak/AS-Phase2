@@ -24,6 +24,7 @@ public class ProdMain {
         }*/
         CollectEntity ce = new CollectEntity();
         ce.main();
-        //DigestionEntity.main();
+        DigestionEntity de = new DigestionEntity();
+        de.main();
     }
 }
