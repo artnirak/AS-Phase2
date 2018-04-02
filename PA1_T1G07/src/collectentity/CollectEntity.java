@@ -19,8 +19,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @author Francisco Lopes 76406
  */
 public class CollectEntity {
-
-    public static void main() {
+    
+    private CollectEntityUI ceui;
+    
+    public void main() {
+        ceui = new CollectEntityUI();
         processData("HB.txt");
         processData("SPEED.txt");
         processData("STATUS.txt");
@@ -28,7 +31,7 @@ public class CollectEntity {
 
     
     private static void produceData(String data) {
-        String topicName = "test";
+        String topicName = "EnrichTopic";
         String key = "Key1";
 
         Properties props = new Properties();
@@ -43,15 +46,15 @@ public class CollectEntity {
     }
     
     
-    private static void processData(String filename) {
+    private void processData(String filename) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             String st;
             while ((st = br.readLine()) != null) {
-                produceData(st);
-                System.out.println(st);
+                //produceData(st);
+                ceui.appendText(st);
             }   
         } catch (FileNotFoundException e) {
             System.err.println("File " + filename + " not found.");
