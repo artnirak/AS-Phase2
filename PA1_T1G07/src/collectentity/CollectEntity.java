@@ -1,4 +1,3 @@
-
 package collectentity;
 
 import java.io.BufferedReader;
@@ -19,17 +18,19 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @author Francisco Lopes 76406
  */
 public class CollectEntity {
-    
+
     private CollectEntityUI ceui;
-    
+
     public void main() {
         ceui = new CollectEntityUI();
-        processData("HB.txt");
-        processData("SPEED.txt");
-        processData("STATUS.txt");
+        //processData("HB.txt");
+        //processData("SPEED.txt");
+        //processData("STATUS.txt");
+        new Thread(() -> processData("HB.txt")).start();
+        new Thread(() -> processData("SPEED.txt")).start();
+        new Thread(() -> processData("STATUS.txt")).start();
     }
 
-    
     private static void produceData(String data) {
         String topicName = "EnrichTopic";
         String key = "Key1";
@@ -44,8 +45,7 @@ public class CollectEntity {
             producer.send(record);
         }
     }
-    
-    
+
     private void processData(String filename) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
 
@@ -55,7 +55,7 @@ public class CollectEntity {
             while ((st = br.readLine()) != null) {
                 //produceData(st);
                 ceui.appendText(st);
-            }   
+            }
         } catch (FileNotFoundException e) {
             System.err.println("File " + filename + " not found.");
             System.exit(1);
