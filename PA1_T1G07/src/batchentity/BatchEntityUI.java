@@ -1,4 +1,4 @@
-package collectentity;
+package batchentity;
 
 import javax.swing.text.DefaultCaret;
 import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
@@ -7,18 +7,17 @@ import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntityUI extends javax.swing.JFrame {
+public class BatchEntityUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form CollectEntityUI
+     * Creates new form BatchEntityUI
      */
-    public CollectEntityUI() {
+    public BatchEntityUI() {
         initComponents();
         jTextArea1.setEditable(false);
         DefaultCaret caret = (DefaultCaret) jTextArea1.getCaret();
         caret.setUpdatePolicy(ALWAYS_UPDATE);
         main();
-
     }
 
     /**
@@ -35,12 +34,12 @@ public class CollectEntityUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Collect Entity UI");
+        setTitle("Batch Entity UI");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sent Messages", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Received Messages", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.setToolTipText("");
+        jPanel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
@@ -54,14 +53,13 @@ public class CollectEntityUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -93,31 +91,20 @@ public class CollectEntityUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CollectEntityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BatchEntityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         //</editor-fold>
 
         /* Create and display the form 
         java.awt.EventQueue.invokeLater(() -> {
-            new CollectEntityUI().setVisible(true);
+            new BatchEntityUI().setVisible(true);
         });*/
         this.setVisible(true);
     }
-
+    
     public void appendText(String str) {
-        //Smooth update on textarea but slower
-        /*Runnable updateGUI = () -> {
-            jTextArea1.append(str + "\n");
-        };
-        Thread t = new Thread(updateGUI);
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         jTextArea1.append(str + "\n");
     }
 

@@ -15,14 +15,18 @@ import java.util.logging.Logger;
  */
 public class BatchEntity {
     
-    public static void main() {
+    private BatchEntityUI beui;
+    
+    public void main() {
         //consumeData();
+        beui = new BatchEntityUI();
     }
-    public static void storeData(String data) {
+    public void storeData(String data) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", "BATCH.txt").toString());
         
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(data + "\n");
+            beui.appendText(data);
             
         } catch (IOException e) {
             Logger.getLogger(BatchEntity.class.getName()).log(Level.SEVERE, null, e);

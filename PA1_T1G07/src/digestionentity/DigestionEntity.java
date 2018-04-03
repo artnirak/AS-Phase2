@@ -5,6 +5,7 @@
  */
 package digestionentity;
 
+//import batchentity.BatchEntity;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,10 +29,16 @@ import java.util.logging.Logger;
 public class DigestionEntity {
     
     private DigestionEntityUI deui;
+    //TESTING
+    //private BatchEntity be;
 
     public void main() {
         //consumeData();
         deui = new DigestionEntityUI();
+        //TESTING
+        //be = new BatchEntity();
+        //be.main();
+        
         processData("HB.txt");
         processData("SPEED.txt");
         processData("STATUS.txt");
@@ -113,10 +120,13 @@ public class DigestionEntity {
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
-            String st;
+            String st, enrichedData;
             while ((st = br.readLine()) != null) {
                 deui.appendReceived(st);
-                deui.appendSent(enrichData(st));
+                enrichedData = enrichData(st);
+                deui.appendSent(enrichedData);
+                //TESTING
+                //be.storeData(enrichedData);
             }   
         } catch (FileNotFoundException e) {
             System.err.println("File " + filename + " not found.");
