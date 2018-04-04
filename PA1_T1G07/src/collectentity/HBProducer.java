@@ -1,5 +1,6 @@
 package collectentity;
 
+import gui.CollectEntityUI;
 import interfaces.ProducerInterface;
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,4 +1,4 @@
-package batchentity;
+package gui;
 
 import javax.swing.text.DefaultCaret;
 import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;

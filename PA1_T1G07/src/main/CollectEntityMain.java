@@ -1,6 +1,6 @@
 package main;
 
-import collectentity.CollectEntityUI;
+import gui.CollectEntityUI;
 import collectentity.HBProducer;
 import collectentity.SPEEDProducer;
 import collectentity.STATUSProducer;

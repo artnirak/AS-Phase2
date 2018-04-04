@@ -1,5 +1,6 @@
 package batchentity;
 
+import gui.BatchEntityUI;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
