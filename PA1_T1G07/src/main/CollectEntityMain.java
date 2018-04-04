@@ -1,18 +1,25 @@
 package main;
 
-import collectentity.CollectEntity;
+import collectentity.CollectEntityUI;
+import collectentity.HBProducer;
+import collectentity.SPEEDProducer;
+import collectentity.STATUSProducer;
+import interfaces.Constantes;
 
 /**
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntityMain {
+public class CollectEntityMain implements Constantes{
     public static void main(String[] args) {
-        CollectEntity ce = new CollectEntity();
+        CollectEntityUI ceui = new CollectEntityUI();
+        HBProducer hbce = new HBProducer(ceui);
+        SPEEDProducer speedce = new SPEEDProducer(ceui);
+        STATUSProducer statusce = new STATUSProducer(ceui);
         
-        new Thread(() -> ce.processData("HB.txt")).start();
-        new Thread(() -> ce.processData("SPEED.txt")).start();
-        new Thread(() -> ce.processData("STATUS.txt")).start();
+        new Thread(() -> hbce.processData(hbfile)).start();
+        new Thread(() -> speedce.processData(speedfile)).start();
+        new Thread(() -> statusce.processData(statusfile)).start();
         
         
     }
