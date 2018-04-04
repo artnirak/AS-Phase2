@@ -2,6 +2,7 @@ package collectentity;
 
 import gui.CollectEntityUI;
 import callback.ProducerCallback;
+import interfaces.Constantes;
 import interfaces.ProducerInterface;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,11 +22,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  *
  * @author Francisco Lopes 76406
  */
-public class SPEEDProducer implements ProducerInterface {
+public class CollectEntitySPEEDProducer implements ProducerInterface, Constantes {
 
     private final CollectEntityUI ceui;
     
-    public SPEEDProducer(CollectEntityUI ceui) {
+    public CollectEntitySPEEDProducer(CollectEntityUI ceui) {
         this.ceui = ceui;
     }
 
@@ -44,7 +45,7 @@ public class SPEEDProducer implements ProducerInterface {
     }
 
     public void processData(String filename) {
-        File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
+        File file = new File(Paths.get(DATA_PATH, filename).toString());
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
@@ -57,7 +58,7 @@ public class SPEEDProducer implements ProducerInterface {
             System.err.println("File " + filename + " not found.");
             System.exit(1);
         } catch (IOException ex) {
-            Logger.getLogger(SPEEDProducer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CollectEntitySPEEDProducer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

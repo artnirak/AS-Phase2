@@ -1,25 +1,25 @@
 package main;
 
 import gui.CollectEntityUI;
-import collectentity.HBProducer;
-import collectentity.SPEEDProducer;
-import collectentity.STATUSProducer;
+import collectentity.CollectEntityHBProducer;
+import collectentity.CollectEntitySPEEDProducer;
+import collectentity.CollectEntitySTATUSProducer;
 import interfaces.Constantes;
 
 /**
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntityMain implements Constantes{
+public class CollectEntityMain implements Constantes {
     public static void main(String[] args) {
         CollectEntityUI ceui = new CollectEntityUI();
-        HBProducer hbce = new HBProducer(ceui);
-        SPEEDProducer speedce = new SPEEDProducer(ceui);
-        STATUSProducer statusce = new STATUSProducer(ceui);
+        CollectEntityHBProducer hbce = new CollectEntityHBProducer(ceui);
+        CollectEntitySPEEDProducer speedce = new CollectEntitySPEEDProducer(ceui);
+        CollectEntitySTATUSProducer statusce = new CollectEntitySTATUSProducer(ceui);
         
-        new Thread(() -> hbce.processData(hbfile)).start();
-        new Thread(() -> speedce.processData(speedfile)).start();
-        new Thread(() -> statusce.processData(statusfile)).start();
+        new Thread(() -> hbce.processData(HB_FILE)).start();
+        new Thread(() -> speedce.processData(SPEED_FILE)).start();
+        new Thread(() -> statusce.processData(STATUS_FILE)).start();
         
         
     }

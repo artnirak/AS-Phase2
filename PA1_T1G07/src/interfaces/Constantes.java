@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaces;
+
+import java.nio.file.Paths;
 
 /**
  *
  * @author pedro
  */
 public interface Constantes {
-    /* filenames */
     
-    public String hbfile = "HB.txt";
-    public String speedfile = "SPEED.txt";
-    public String statusfile = "STATUS.txt";
+    public static final String HB_FILE = "HB.txt";
+    public static final String SPEED_FILE = "SPEED.txt";
+    public static final String STATUS_FILE = "STATUS.txt";
+    public static final String DATA_PATH = Paths.get(System.getProperty("user.dir"), "src", "data").toString();
 }
