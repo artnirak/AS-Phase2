@@ -22,8 +22,6 @@ public class ProdMain {
         } else {
             runProducer(Integer.parseInt(args[0]));
         }*/
-        CollectEntity ce = new CollectEntity();
-        ce.main();
         //DigestionEntity de = new DigestionEntity();
         //de.main();
     }

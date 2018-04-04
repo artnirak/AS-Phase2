@@ -19,16 +19,10 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class CollectEntity {
 
-    private CollectEntityUI ceui;
-
-    public void main() {
+    private final CollectEntityUI ceui;
+    
+    public CollectEntity() {
         ceui = new CollectEntityUI();
-        //processData("HB.txt");
-        //processData("SPEED.txt");
-        //processData("STATUS.txt");
-        new Thread(() -> processData("HB.txt")).start();
-        new Thread(() -> processData("SPEED.txt")).start();
-        new Thread(() -> processData("STATUS.txt")).start();
     }
 
     private static void produceData(String data) {
@@ -46,7 +40,7 @@ public class CollectEntity {
         }
     }
 
-    private void processData(String filename) {
+    public void processData(String filename) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
