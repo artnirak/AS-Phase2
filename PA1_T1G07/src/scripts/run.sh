@@ -21,7 +21,7 @@ xterm -T "node 3" -hold -e "cd ${kafka_home}; bin/kafka-server-start.sh config/s
 
 sleep 5
 
-xterm -T "general" -hold -e "cd ${kafka_home};bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic EnrichTopic_1;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 1 --topic EnrichTopic_2;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 1 --topic EnrichTopic_3 " &
+xterm -T "general" -hold -e "cd ${kafka_home};bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic EnrichTopic_1;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 4 --topic EnrichTopic_2;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 4 --topic EnrichTopic_3 " &
 
 
 #xterm -T "general" -hold -e "cd ${kafka_home};bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic EnrichedTopic_1;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 1 --topic EnrichedTopic_2;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 4 --partitions 1 --topic EnrichedTopic_3  " &

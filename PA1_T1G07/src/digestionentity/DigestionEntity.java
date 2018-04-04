@@ -55,8 +55,6 @@ public class DigestionEntity {
                 BOOTSTRAP_SERVERS);
         props.put(ConsumerConfig.GROUP_ID_CONFIG,
                 "KafkaExampleConsumer");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                LongDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class.getName());
 
