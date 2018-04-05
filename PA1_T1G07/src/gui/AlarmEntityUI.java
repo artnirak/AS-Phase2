@@ -160,8 +160,11 @@ public class AlarmEntityUI extends javax.swing.JFrame {
                 dtm.insertRow(idx, new Object[]{n, status});
             } else {
                 idx = cars.indexOf(n);
-                dtm.removeRow(idx);
-                dtm.insertRow(idx, new Object[]{n, status});
+                if (dtm.getValueAt(idx, 1) != status) {
+                    dtm.removeRow(idx);
+                    dtm.insertRow(idx, new Object[]{n, status});
+                }
+
             }
         };
         Thread t = new Thread(updateGUI);
