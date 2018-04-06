@@ -23,9 +23,11 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final DigestionEntityUI deui;
+    private final ProducerInterface producer;
     
-    public DigestionEntitySPEEDConsumer(DigestionEntityUI deui) {
+    public DigestionEntitySPEEDConsumer(DigestionEntityUI deui, ProducerInterface producer) {
         this.deui = deui;
+        this.producer = producer;
     }
     
     private Consumer<String, String> createConsumer() {
@@ -45,7 +47,7 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
     }
 
     @Override
-    public void consumeData(ProducerInterface producer) {
+    public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
             // Create the rebalance Listener
             RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer);

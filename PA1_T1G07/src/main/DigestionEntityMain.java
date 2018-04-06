@@ -14,15 +14,15 @@ public class DigestionEntityMain {
         DigestionEntityUI deui = new DigestionEntityUI();
         
         ProducerInterface hbproducer = new DigestionEntityHBProducer(deui);
-        ConsumerInterface hbconsumer = new DigestionEntityHBConsumer(deui);
+        ConsumerInterface hbconsumer = new DigestionEntityHBConsumer(deui, hbproducer);
         ProducerInterface speedproducer = new DigestionEntitySPEEDProducer(deui);
-        ConsumerInterface speedconsumer = new DigestionEntitySPEEDConsumer(deui);
+        ConsumerInterface speedconsumer = new DigestionEntitySPEEDConsumer(deui, speedproducer);
         ProducerInterface statusproducer = new DigestionEntitySTATUSProducer(deui);
-        ConsumerInterface statusconsumer = new DigestionEntitySTATUSConsumer(deui);
+        ConsumerInterface statusconsumer = new DigestionEntitySTATUSConsumer(deui, statusproducer);
         
-        hbconsumer.consumeData(hbproducer);
-        speedconsumer.consumeData(speedproducer);
-        statusconsumer.consumeData(statusproducer);
+        hbconsumer.consumeData();
+        speedconsumer.consumeData();
+        statusconsumer.consumeData();
         
     }
 }

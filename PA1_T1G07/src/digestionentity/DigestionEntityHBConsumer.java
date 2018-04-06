@@ -22,9 +22,11 @@ public class DigestionEntityHBConsumer implements Constantes, ConsumerInterface 
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final DigestionEntityUI deui;
+    private final ProducerInterface producer;
     
-    public DigestionEntityHBConsumer(DigestionEntityUI deui) {
+    public DigestionEntityHBConsumer(DigestionEntityUI deui, ProducerInterface producer) {
         this.deui = deui;
+        this.producer = producer;
     }
 
     private Consumer<String,String> createConsumer() {
@@ -45,7 +47,7 @@ public class DigestionEntityHBConsumer implements Constantes, ConsumerInterface 
     }
 
     @Override
-    public void consumeData(ProducerInterface producer) {
+    public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
             final int giveUp = 100;
             int noRecordsCount = 0;
