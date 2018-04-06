@@ -1,4 +1,4 @@
-package digestionentity;
+package batchentity;
 
 import static digestionentity.DataEnrichment.enrichData;
 import gui.DigestionEntityUI;
@@ -16,32 +16,29 @@ import java.util.Properties;
  *
  * @author pedro
  */
-public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterface {
+public class BatchEntityHBConsumer implements Constantes, ConsumerInterface {
     
-
-    private final static String TOPIC = "EnrichTopic_3";
+    private final static String TOPIC = "EnrichedTopic_1";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    private final DigestionEntityUI deui;
-    private final ProducerInterface producer;
+    private final DigestionEntityUI beui;
     
-    public DigestionEntitySTATUSConsumer(DigestionEntityUI deui, ProducerInterface producer) {
-        this.deui = deui;
-        this.producer = producer;
+    public BatchEntityHBConsumer(DigestionEntityUI beui) {
+        this.beui = beui;
     }
-    
-    public Consumer<String, String> createConsumer() {
+
+    private Consumer<String,String> createConsumer() {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,STATUS_DIGESTION_CONSUMER_GROUP);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,HB_BATCH_CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "2000");  //in case of rebalance, reprocessing can happen!
+        props.put("auto.commit.interval.ms", "2000");   //in case of rebalance, reprocessing can happen!
 
         // Create the consumer using props.
-        final Consumer<String, String> consumer
-                = new KafkaConsumer<>(props);
+        final Consumer<String,String> consumer;
+        consumer = new KafkaConsumer<>(props);
 
         // Subscribe to the topic.
         consumer.subscribe(Collections.singletonList(TOPIC));
@@ -69,8 +66,7 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
-                    deui.appendReceived(data);
-                    producer.produceData(enrichData(data));
+                    beui.appendReceived(data);
                 });
 
             }

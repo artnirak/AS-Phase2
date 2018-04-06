@@ -14,15 +14,33 @@ public class DigestionEntityMain {
         DigestionEntityUI deui = new DigestionEntityUI();
         
         ProducerInterface hbproducer = new DigestionEntityHBProducer(deui);
-        ConsumerInterface hbconsumer = new DigestionEntityHBConsumer(deui, hbproducer);
+        ConsumerInterface hbconsumer_1 = new DigestionEntityHBConsumer(deui, hbproducer,1);
+        ConsumerInterface hbconsumer_2 = new DigestionEntityHBConsumer(deui, hbproducer,2);
+        ConsumerInterface hbconsumer_3 = new DigestionEntityHBConsumer(deui, hbproducer,3);
+        
         ProducerInterface speedproducer = new DigestionEntitySPEEDProducer(deui);
-        ConsumerInterface speedconsumer = new DigestionEntitySPEEDConsumer(deui, speedproducer);
+        ConsumerInterface speedconsumer_1 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
+        ConsumerInterface speedconsumer_2 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
+        ConsumerInterface speedconsumer_3 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
+        
+        
         ProducerInterface statusproducer = new DigestionEntitySTATUSProducer(deui);
-        ConsumerInterface statusconsumer = new DigestionEntitySTATUSConsumer(deui, statusproducer);
+        ConsumerInterface statusconsumer_1 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
+        ConsumerInterface statusconsumer_2 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
+        ConsumerInterface statusconsumer_3 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
         
-        hbconsumer.consumeData();
-        speedconsumer.consumeData();
-        statusconsumer.consumeData();
         
+        //parallel consumption each consumer is atributed a partition
+        new Thread(() -> hbconsumer_1.consumeData()).start();
+        new Thread(() -> hbconsumer_2.consumeData()).start();
+        new Thread(() -> hbconsumer_3.consumeData()).start();
+        
+        new Thread(() -> speedconsumer_1.consumeData()).start();
+        new Thread(() -> speedconsumer_2.consumeData()).start();
+        new Thread(() -> speedconsumer_3.consumeData()).start();
+        
+        new Thread(() -> statusconsumer_1.consumeData()).start();
+        new Thread(() -> statusconsumer_2.consumeData()).start();
+        new Thread(() -> statusconsumer_3.consumeData()).start();
     }
 }

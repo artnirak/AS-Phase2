@@ -6,4 +6,5 @@ package interfaces;
  */
 public interface ProducerInterface {
     public void produceData(String data);
+    public void closeProducer();
 }
