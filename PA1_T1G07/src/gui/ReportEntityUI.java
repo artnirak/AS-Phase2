@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.text.DefaultCaret;
 import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 
@@ -11,12 +9,9 @@ import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntityUI extends javax.swing.JFrame {
+public class ReportEntityUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CollectEntityUI
-     */
-    public CollectEntityUI() {
+    public ReportEntityUI() {
         initComponents();
         main();
     }
@@ -29,24 +24,23 @@ public class CollectEntityUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
-        Dimension window = Toolkit.getDefaultToolkit().getScreenSize(); 
-        double width = window.getWidth(); 
+        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = window.getWidth();
         double height = window.getHeight();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Collect Entity UI");
-
-        setLocation(new java.awt.Point((int) (width/20), (int) (height/20)));
+        setTitle("Report Entity UI");
+        
+        setLocation(new java.awt.Point((int) (width/20), (int) (height/2.2)));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sent Messages", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Received Messages", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.setToolTipText("");
+        jPanel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -56,14 +50,14 @@ public class CollectEntityUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -81,6 +75,7 @@ public class CollectEntityUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void main() {
         /* Set the Nimbus look and feel
          * If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -93,15 +88,15 @@ public class CollectEntityUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CollectEntityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportEntityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-        DefaultCaret caret = (DefaultCaret) jTextArea1.getCaret();
-        caret.setUpdatePolicy(ALWAYS_UPDATE);
+        
+        DefaultCaret caret1 = (DefaultCaret) jTextArea1.getCaret();
+        caret1.setUpdatePolicy(ALWAYS_UPDATE);
         this.setVisible(true);
     }
-
-    public synchronized void appendText(String str) {
+    
+    public void appendText(String str) {
         //Smooth update on textarea but slower
         /*Runnable updateGUI = () -> {
             jTextArea1.append(str + "\n");

@@ -85,6 +85,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="jTextArea1">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
@@ -143,6 +144,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="jTextArea2">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
