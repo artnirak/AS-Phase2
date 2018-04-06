@@ -1,5 +1,6 @@
-package collectentity;
+package digestionentity;
 
+import collectentity.*;
 import callback.ProducerCallback;
 import gui.CollectEntityUI;
 import interfaces.Constantes;
@@ -21,16 +22,16 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntityHBProducer implements ProducerInterface, Constantes {
+public class DigestionEntityHBProducer implements ProducerInterface, Constantes {
 
-    private final CollectEntityUI ceui;
+    private final CollectEntityUI deui;
     
-    public CollectEntityHBProducer(CollectEntityUI ceui) {
-        this.ceui = ceui;
+    public DigestionEntityHBProducer(CollectEntityUI deui) {
+        this.deui = deui;
     }
 
-    public void produceData(String data) {
-        String topicName = "EnrichTopic_1";
+    public void produceData(String  data) {
+        String topicName = "EnrichedTopic_1";
 
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092,localhost:9093,localhost:9094");
@@ -42,21 +43,13 @@ public class CollectEntityHBProducer implements ProducerInterface, Constantes {
         } 
     }
 
-    public void processData() {
-        File file = new File(Paths.get(DATA_PATH, HB_FILE).toString());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String st;
-            while ((st = br.readLine()) != null) {
-                //produceData(st);
-                ceui.appendText(st);
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("File " + HB_FILE + " not found.");
-            System.exit(1);
-        } catch (IOException ex) {
-            Logger.getLogger(CollectEntityHBProducer.class.getName()).log(Level.SEVERE, null, ex);
+    public void processData(StringBuilder sb_data) {
+        String[] lines = sb_data.toString().split("\\n");
+        
+        for(String line: lines)
+        {
+            //produceData(line);
+            deui.appendText(line);
         }
     }
 

@@ -1,5 +1,6 @@
-package collectentity;
+package digestionentity;
 
+import collectentity.*;
 import gui.CollectEntityUI;
 import callback.ProducerCallback;
 import interfaces.Constantes;
@@ -24,25 +25,30 @@ import org.apache.kafka.clients.producer.RecordMetadata;
  *
  * @author Francisco Lopes 76406
  */
-public class CollectEntitySTATUSProducer implements ProducerInterface, Constantes {
+public class DigestionEntitySPEEDProducer implements ProducerInterface, Constantes {
 
-    private final CollectEntityUI ceui;
+    private final CollectEntityUI deui;
     
-    public CollectEntitySTATUSProducer(CollectEntityUI ceui) {
-        this.ceui = ceui;
+    public DigestionEntitySPEEDProducer(CollectEntityUI deui) {
+        this.deui = deui;
     }
 
     public void produceData(String data) {
-        String topicName = "EnrichTopic_3";
+        String topicName = "EnrichedTopic_2";
 
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092,localhost:9093,localhost:9094");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put(ProducerConfig.ACKS_CONFIG, "all"); //LEADER PEDE CONFIRMAÇÃO A TODAS AS ISR
+        props.put(ProducerConfig.ACKS_CONFIG, "all"); //confirmation from all ISRs
+        
+        /*The Producer config property retries defaults to 0 and is the retry count if Producer does not get an ack from Kafka Broker. 
+            The Producer will only retry if record send fail is deemed a transient error (API). The Producer will act as if your producer code resent the record on a failed attempt. 
+            Note that timeouts are re-tried, but retry.backoff.ms (default to 100 ms) is used to wait after failure before retrying the request again. 
+            If you set retry > 0, then you should also set max.in.flight.requests.per.connection to 1, or there is the possibility that a re-tried message could be delivered out of order. 
+            You have to decide if out of order message delivery matters for your application. */
         
         props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,1); //ORDER IS IMPORTANT
         props.put(ProducerConfig.RETRIES_CONFIG, 3);
-        
         //Request timeout - request.timeout.ms
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 15_000);
 
@@ -54,30 +60,22 @@ public class CollectEntitySTATUSProducer implements ProducerInterface, Constante
 
         try {
             RecordMetadata metadata = producer.send(record).get();
-            System.out.println("Metadata: "+ metadata.partition() + "; "+ metadata.offset() + "; " + metadata.timestamp());
+            System.out.println("Metadata: "+ metadata.partition() + "; "+ metadata.offset());
             System.out.println("Sent successfuly.");
             
         } catch (InterruptedException | ExecutionException ex) {
-            Logger.getLogger(CollectEntitySPEEDProducer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DigestionEntitySPEEDProducer.class.getName()).log(Level.SEVERE, null, ex);
         } 
-
+        
     }
 
-    public void processData() {
-        File file = new File(Paths.get(DATA_PATH, STATUS_FILE).toString());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String st;
-            while ((st = br.readLine()) != null) {
-                //produceData(st);
-                ceui.appendText(st);
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("File " + STATUS_FILE + " not found.");
-            System.exit(1);
-        } catch (IOException ex) {
-            Logger.getLogger(CollectEntitySTATUSProducer.class.getName()).log(Level.SEVERE, null, ex);
+    public void processData(StringBuilder sb_data) {
+        String[] lines = sb_data.toString().split("\\n");
+        
+        for(String line: lines)
+        {
+            //produceData(line);
+            deui.appendText(line);
         }
     }
 }
