@@ -62,6 +62,7 @@ public class AlarmEntityUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alarm Entity UI");
+        
         setLocation(new java.awt.Point((int) (width/1.45), (int) (height/2.3)));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
