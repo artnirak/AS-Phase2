@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author Francisco Lopes 76406
  */
 public class StoreData {
-    public void storeData(String data) {
+    public static void storeData(String data) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", "BATCH.txt").toString());
         
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {

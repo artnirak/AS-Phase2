@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -40,23 +42,27 @@ public class AlarmEntityUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        dtm = new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {
-                "Car ID", "Alarm"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
+        dtm = new javax.swing.table.DefaultTableModel( 
+            new Object [][] {}, 
+            new String [] { 
+                "Car ID", "Alarm" 
+            } 
+        ) { 
+            boolean[] canEdit = new boolean [] { 
+                false, false 
+            }; 
+ 
+            public boolean isCellEditable(int rowIndex, int columnIndex) { 
+                return canEdit [columnIndex]; 
+            } 
         };
+        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = window.getWidth();
+        double height = window.getHeight();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alarm Entity UI");
+        setLocation(new java.awt.Point((int) (width/1.45), (int) (height/2.3)));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Received Messages", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -73,7 +79,7 @@ public class AlarmEntityUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -98,13 +104,13 @@ public class AlarmEntityUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -176,6 +182,7 @@ public class AlarmEntityUI extends javax.swing.JFrame {
         jTextArea1.append(str + "\n");
     }
 
+    private javax.swing.table.DefaultTableModel dtm;
     private final ArrayList<Integer> cars;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,6 +192,5 @@ public class AlarmEntityUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.table.DefaultTableModel dtm;
     // End of variables declaration//GEN-END:variables
 }
