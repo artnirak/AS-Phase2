@@ -1,6 +1,5 @@
 package collectentity;
 
-import callback.ProducerCallback;
 import gui.CollectEntityUI;
 import interfaces.Constantes;
 import interfaces.ProducerInterface;
@@ -29,6 +28,7 @@ public class CollectEntityHBProducer implements ProducerInterface, Constantes {
         this.ceui = ceui;
     }
 
+    @Override
     public void produceData(String data) {
         String topicName = "EnrichTopic_1";
 

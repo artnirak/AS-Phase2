@@ -4,7 +4,6 @@ import gui.CollectEntityUI;
 import collectentity.CollectEntityHBProducer;
 import collectentity.CollectEntitySPEEDProducer;
 import collectentity.CollectEntitySTATUSProducer;
-import interfaces.Constantes;
 
 /**
  *

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rebalancelistener;
 
 import java.util.Collection;
@@ -19,8 +14,8 @@ import org.apache.kafka.common.TopicPartition;
  */
 public class RebalanceMonitor implements ConsumerRebalanceListener {
     
-    private KafkaConsumer consumer;
-    private Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap();
+    private final KafkaConsumer consumer;
+    private final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap();
     
     public RebalanceMonitor(KafkaConsumer consumer)
     {
@@ -37,29 +32,28 @@ public class RebalanceMonitor implements ConsumerRebalanceListener {
         return currentOffsets;
     }
 
+    @Override
     public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
         System.out.println("Revoked partitions:");
-        for(TopicPartition part: partitions)
-        {
+        partitions.forEach((part) -> {
             System.out.println(part.partition()+"; ");
-        }
+        });
         
         System.out.println("Comitted partitions:");
-        for(TopicPartition tp: currentOffsets.keySet())
-        {
+        currentOffsets.keySet().forEach((tp) -> {
             System.out.println(tp.partition()+"; ");
-        }
+        });
         
         consumer.commitSync(currentOffsets);
         currentOffsets.clear();
     }
 
+    @Override
     public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
         System.out.println("Assigned partitions:");
-        for(TopicPartition part: partitions)
-        {
+        partitions.forEach((part) -> {
             System.out.println(part.partition()+"; ");
-        }
+        });
     }
     
 }

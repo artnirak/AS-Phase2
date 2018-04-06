@@ -1,7 +1,6 @@
 package collectentity;
 
 import gui.CollectEntityUI;
-import callback.ProducerCallback;
 import interfaces.Constantes;
 import interfaces.ProducerInterface;
 import java.io.BufferedReader;
@@ -32,6 +31,7 @@ public class CollectEntitySTATUSProducer implements ProducerInterface, Constante
         this.ceui = ceui;
     }
 
+    @Override
     public void produceData(String data) {
         String topicName = "EnrichTopic_3";
 
