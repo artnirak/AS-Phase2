@@ -1,16 +1,8 @@
 package digestionentity;
 
-import collectentity.*;
-import gui.CollectEntityUI;
-import callback.ProducerCallback;
+import gui.DigestionEntityUI;
 import interfaces.Constantes;
 import interfaces.ProducerInterface;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -27,16 +19,13 @@ import org.apache.kafka.clients.producer.RecordMetadata;
  */
 public class DigestionEntitySPEEDProducer implements ProducerInterface, Constantes {
 
-    private final CollectEntityUI deui;
+    private final DigestionEntityUI deui;
+    private static final String TOPIC_NAME = "EnrichedTopic_2";
+    private final Properties props;
     
-    public DigestionEntitySPEEDProducer(CollectEntityUI deui) {
+    public DigestionEntitySPEEDProducer(DigestionEntityUI deui) {
         this.deui = deui;
-    }
-
-    public void produceData(String data) {
-        String topicName = "EnrichedTopic_2";
-
-        Properties props = new Properties();
+        props = new Properties();
         props.put("bootstrap.servers", "localhost:9092,localhost:9093,localhost:9094");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.ACKS_CONFIG, "all"); //confirmation from all ISRs
@@ -54,28 +43,21 @@ public class DigestionEntitySPEEDProducer implements ProducerInterface, Constant
 
         //Only retry after one second.
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1_000);
-        
+    }
+
+    @Override
+    public void produceData(String data) {        
         Producer<String, String> producer = new KafkaProducer<>(props);
-        ProducerRecord<String, String> record = new ProducerRecord<>(topicName, data);
+        ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, data);
 
         try {
             RecordMetadata metadata = producer.send(record).get();
             System.out.println("Metadata: "+ metadata.partition() + "; "+ metadata.offset());
             System.out.println("Sent successfuly.");
+            deui.appendSent(data);
             
         } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(DigestionEntitySPEEDProducer.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        
-    }
-
-    public void processData(StringBuilder sb_data) {
-        String[] lines = sb_data.toString().split("\\n");
-        
-        for(String line: lines)
-        {
-            //produceData(line);
-            deui.appendText(line);
-        }
     }
 }

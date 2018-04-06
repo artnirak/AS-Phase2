@@ -1,19 +1,9 @@
 package digestionentity;
 
-import collectentity.*;
-import callback.ProducerCallback;
-import gui.CollectEntityUI;
+import gui.DigestionEntityUI;
 import interfaces.Constantes;
 import interfaces.ProducerInterface;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -24,33 +14,25 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class DigestionEntityHBProducer implements ProducerInterface, Constantes {
 
-    private final CollectEntityUI deui;
+    private final DigestionEntityUI deui;
+    private final String TOPIC_NAME = "EnrichedTopic_1";
+    private final Properties props;
     
-    public DigestionEntityHBProducer(CollectEntityUI deui) {
+    public DigestionEntityHBProducer(DigestionEntityUI deui) {
         this.deui = deui;
-    }
-
-    public void produceData(String  data) {
-        String topicName = "EnrichedTopic_1";
-
-        Properties props = new Properties();
+        props = new Properties();
+        
         props.put("bootstrap.servers", "localhost:9092,localhost:9093,localhost:9094");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    }
+
+    @Override
+    public void produceData(String  data) {
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
-            ProducerRecord<String, String> record = new ProducerRecord<>(topicName, data);
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, data);
             producer.send(record);
+            deui.appendSent(data);            
         } 
     }
-
-    public void processData(StringBuilder sb_data) {
-        String[] lines = sb_data.toString().split("\\n");
-        
-        for(String line: lines)
-        {
-            //produceData(line);
-            deui.appendText(line);
-        }
-    }
-
 }

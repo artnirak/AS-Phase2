@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package digestionentity;
 
-//import batchentity.BatchEntity;
+import static digestionentity.DataEnrichment.enrichData;
+import gui.DigestionEntityUI;
 import interfaces.Constantes;
 import interfaces.ConsumerInterface;
+import interfaces.ProducerInterface;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -22,11 +19,16 @@ import rebalancelistener.RebalanceMonitor;
  */
 public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     
-
     private final static String TOPIC = "EnrichTopic_2";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    public Consumer<String, String> createConsumer() {
+    private final DigestionEntityUI deui;
+    
+    public DigestionEntitySPEEDConsumer(DigestionEntityUI deui) {
+        this.deui = deui;
+    }
+    
+    private Consumer<String, String> createConsumer() {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
         props.put(ConsumerConfig.GROUP_ID_CONFIG,SPEED_DIGESTION_CONSUMER_GROUP);
@@ -42,7 +44,8 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
         return consumer;
     }
 
-    public void consumeData() {
+    @Override
+    public void consumeData(ProducerInterface producer) {
         try (Consumer<String, String> consumer = createConsumer()) {
             // Create the rebalance Listener
             RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer);
@@ -67,53 +70,13 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
                 }
                 
                 consumerRecords.forEach(record -> {
-                    String enrichedData = enrichData(record.value());
+                    String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
+                    deui.appendReceived(data);
+                    producer.produceData(enrichData(data));
                 });
                 consumer.commitSync(rebmon.getCurrentOffsets());
             }
         }
     }
-
-    public String enrichData(String data) {
-        String[] s;
-        StringBuilder sb = new StringBuilder();
-        s = data.split(" ");
-        for (String parameter : s) {
-            if (parameter.matches("00|01|02"))
-                sb.append("XX-YY-").append(String.format("%02d", Integer.parseInt(s[0]))).append(" ");
-            sb.append(parameter).append(" ");
-        }
-        if (s[2].equals("01"))
-            sb.append("100");
-        return sb.toString().trim();
-    }
-    /*
-    //TESTING
-    private void processData(String filename) {
-        File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", filename).toString());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String st, enrichedData;
-            while ((st = br.readLine()) != null) {
-                deui.appendReceived(st);
-                enrichedData = enrichData(st);
-                deui.appendSent(enrichedData);
-                //TESTING
-                //be.storeData(enrichedData);
-            }   
-        } catch (FileNotFoundException e) {
-            System.err.println("File " + filename + " not found.");
-            System.exit(1);
-        } catch (IOException ex) {
-            Logger.getLogger(DigestionEntityHBConsumer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/
-
 }
-
-//criar consumer que pega nos dados enviados pelo collect e processa-os "enrichment", o que é o car_reg ?
-    
-    //criar producer que vai enviar os dados processados para os consumers das outras entities, classe separada?  
