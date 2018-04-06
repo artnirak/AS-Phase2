@@ -1,6 +1,5 @@
 package batchentity;
 
-import gui.BatchEntityUI;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,23 +13,14 @@ import java.util.logging.Logger;
  *
  * @author Francisco Lopes 76406
  */
-public class BatchEntity {
-    
-    private BatchEntityUI beui;
-    
-    public void main() {
-        //consumeData();
-        beui = new BatchEntityUI();
-    }
+public class StoreData {
     public void storeData(String data) {
         File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", "BATCH.txt").toString());
         
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(data + "\n");
-            beui.appendText(data);
-            
+            writer.write(data + "\n");            
         } catch (IOException e) {
-            Logger.getLogger(BatchEntity.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BatchEntityXConsumer.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }
