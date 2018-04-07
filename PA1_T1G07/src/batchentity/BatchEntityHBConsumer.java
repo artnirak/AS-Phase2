@@ -1,5 +1,6 @@
 package batchentity;
 
+import static batchentity.StoreData.storeData;
 import gui.BatchEntityUI;
 import interfaces.Constantes;
 import interfaces.ConsumerInterface;
@@ -69,6 +70,7 @@ public class BatchEntityHBConsumer implements Constantes, ConsumerInterface {
                     String partition = Integer.toString(record.partition());
                     System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
+                    storeData(data);
                 });
 
             }
