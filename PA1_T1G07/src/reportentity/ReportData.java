@@ -48,9 +48,7 @@ public class ReportData {
             conn = DriverManager.getConnection(url);
             if (conn != null) {
                 Statement stmt = conn.createStatement();
-                if (stmt.execute(hbtable)) {
-                    System.out.println("HB table created");
-                }
+                stmt.execute(hbtable);
                 stmt.execute(speedtable);
                 stmt.execute(statustable);
             }

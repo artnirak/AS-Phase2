@@ -2,7 +2,6 @@ package reportentity;
 
 import gui.ReportEntityUI;
 import interfaces.Constantes;
-import static interfaces.Constantes.HB_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
 import java.util.Collections;
 import java.util.Properties;
@@ -35,7 +34,7 @@ public class ReportEntityHBConsumer implements Constantes, ConsumerInterface {
     private Consumer<String,String> createConsumer() {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,HB_BATCH_CONSUMER_GROUP);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,HB_REPORT_CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
 

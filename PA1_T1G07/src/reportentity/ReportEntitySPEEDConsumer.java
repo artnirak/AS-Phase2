@@ -2,7 +2,6 @@ package reportentity;
 
 import gui.ReportEntityUI;
 import interfaces.Constantes;
-import static interfaces.Constantes.SPEED_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
 import java.util.Collections;
 import java.util.Properties;
@@ -36,7 +35,7 @@ public class ReportEntitySPEEDConsumer implements Constantes, ConsumerInterface 
     private Consumer<String, String> createConsumer() {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,SPEED_BATCH_CONSUMER_GROUP);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,SPEED_REPORT_CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put("enable.auto.commit", "false");
