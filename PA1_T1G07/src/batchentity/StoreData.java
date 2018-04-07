@@ -1,5 +1,6 @@
 package batchentity;
 
+import static interfaces.Constantes.DATA_PATH;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,12 +16,13 @@ import java.util.logging.Logger;
  */
 public class StoreData {
     public static void storeData(String data) {
-        File file = new File(Paths.get(System.getProperty("user.dir"), "src", "data", "BATCH.txt").toString());
+        File file = new File(Paths.get(DATA_PATH, "BATCH.txt").toString());
         
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(data + "\n");            
-        } catch (IOException e) {
-            Logger.getLogger(BatchEntityXConsumer.class.getName()).log(Level.SEVERE, null, e);
+
+        }   catch (IOException ex) {
+            Logger.getLogger(StoreData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
