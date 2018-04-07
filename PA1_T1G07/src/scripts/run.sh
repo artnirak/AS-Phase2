@@ -1,9 +1,13 @@
 
 #/home/pedro/Desktop/MEI/AS/KAFKA/kafka_2.11-1.0.0  
 
-echo Input the path to kafka
-read pwd_kafka
-kafka_home=${pwd_kafka}
+if [ $# -eq 0 ]; then
+  echo Input the path to kafka
+  read pwd_kafka
+  kafka_home=${pwd_kafka}
+else
+  kafka_home=$1
+fi
 
 
 xterm -T "zookeeper" -hold -e "cd ${kafka_home};bin/zookeeper-server-start.sh config/zookeeper.properties" &
