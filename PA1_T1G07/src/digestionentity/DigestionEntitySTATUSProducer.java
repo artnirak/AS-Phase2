@@ -23,7 +23,7 @@ public class DigestionEntitySTATUSProducer implements ProducerInterface, Constan
     private final DigestionEntityUI deui;
     private static final String TOPIC_NAME = "EnrichedTopic_3";
     private final Properties props;
-    private final KafkaProducer producer;
+    private final Producer producer;
 
     public DigestionEntitySTATUSProducer(DigestionEntityUI deui) {
         this.deui = deui;

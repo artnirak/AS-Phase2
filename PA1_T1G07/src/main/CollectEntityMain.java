@@ -12,6 +12,7 @@ import collectentity.CollectEntitySTATUSProducer;
 public class CollectEntityMain {
     public static void main(String[] args) {
         CollectEntityUI ceui = new CollectEntityUI();
+        
         CollectEntityHBProducer hbce = new CollectEntityHBProducer(ceui);
         CollectEntitySPEEDProducer speedce = new CollectEntitySPEEDProducer(ceui);
         CollectEntitySTATUSProducer statusce = new CollectEntitySTATUSProducer(ceui);

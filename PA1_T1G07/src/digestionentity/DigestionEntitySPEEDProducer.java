@@ -22,7 +22,7 @@ public class DigestionEntitySPEEDProducer implements ProducerInterface, Constant
     private final DigestionEntityUI deui;
     private static final String TOPIC_NAME = "EnrichedTopic_2";
     private final Properties props;
-    private final KafkaProducer producer;
+    private final Producer producer;
 
     public DigestionEntitySPEEDProducer(DigestionEntityUI deui) {
         this.deui = deui;

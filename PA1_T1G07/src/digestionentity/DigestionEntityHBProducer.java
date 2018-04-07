@@ -17,7 +17,7 @@ public class DigestionEntityHBProducer implements ProducerInterface, Constantes 
     private final DigestionEntityUI deui;
     private final String TOPIC_NAME = "EnrichedTopic_1";
     private final Properties props;
-    private final KafkaProducer producer;
+    private final Producer producer;
 
     public DigestionEntityHBProducer(DigestionEntityUI deui) {
         this.deui = deui;

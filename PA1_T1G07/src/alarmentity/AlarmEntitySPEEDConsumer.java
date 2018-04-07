@@ -20,7 +20,7 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     private final static String TOPIC = "EnrichedTopic_2";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    private final AlarmEntityUI aeui;;
+    private final AlarmEntityUI aeui;
     private final int id;
     
     public AlarmEntitySPEEDConsumer(AlarmEntityUI aeui, int id) {
@@ -35,8 +35,6 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put("enable.auto.commit", "false");
-        
-
 
         // Create the consumer using props.
         final KafkaConsumer<String, String> consumer
