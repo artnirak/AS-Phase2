@@ -146,7 +146,7 @@ public class AlarmEntityUI extends javax.swing.JFrame {
 
     public void editTableRow(String data) {
         String[] s = data.split(" ");
-        int id = Integer.parseInt(s[0]), speed = Integer.parseInt(s[3]), max_speed = Integer.parseInt(s[5]);
+        int id = Integer.parseInt(s[0]), speed = Integer.parseInt(s[4]), max_speed = Integer.parseInt(s[6]);
         String status;
         if (speed > max_speed)
             status = "on";
