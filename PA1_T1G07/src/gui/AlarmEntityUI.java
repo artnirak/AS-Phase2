@@ -144,16 +144,23 @@ public class AlarmEntityUI extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    public void editTableRow(int n, String status) {
+    public void editTableRow(String data) {
+        String[] s = data.split(" ");
+        int id = Integer.parseInt(s[0]), speed = Integer.parseInt(s[3]), max_speed = Integer.parseInt(s[5]);
+        String status;
+        if (speed > max_speed)
+            status = "on";
+        else
+            status = "off";
         Runnable updateGUI = () -> {
             int idx;
-            if (!cars.contains(n)) {
-                cars.add(n);
+            if (!cars.contains(id)) {
+                cars.add(id);
                 Collections.sort(cars);
-                idx = cars.indexOf(n);
-                dtm.insertRow(idx, new Object[]{n, status});
+                idx = cars.indexOf(id);
+                dtm.insertRow(idx, new Object[]{id, status});
             } else {
-                idx = cars.indexOf(n);
+                idx = cars.indexOf(id);
                 dtm.setValueAt(status, idx, 1);
             }
         };
