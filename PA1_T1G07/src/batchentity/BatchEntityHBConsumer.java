@@ -34,8 +34,6 @@ public class BatchEntityHBConsumer implements Constantes, ConsumerInterface {
         props.put(ConsumerConfig.GROUP_ID_CONFIG,HB_BATCH_CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "2000");   //in case of rebalance, reprocessing can happen!
 
         // Create the consumer using props.
         final Consumer<String,String> consumer;

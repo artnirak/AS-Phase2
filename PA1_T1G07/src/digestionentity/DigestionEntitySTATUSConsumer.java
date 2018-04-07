@@ -39,7 +39,7 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "2000");  //in case of rebalance, reprocessing can happen!
+        props.put("auto.commit.interval.ms", "500");  //in case of rebalance, reprocessing can happen!
 
         // Create the consumer using props.
         final Consumer<String, String> consumer
@@ -58,7 +58,7 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
-                        = consumer.poll(1000);
+                        = consumer.poll(100);
 
                 if (consumerRecords.count() == 0) {
                     noRecordsCount++;
@@ -71,6 +71,8 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
+                    String partition = Integer.toString(record.partition());
+                    System.out.println("-----------------------------------digestion"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

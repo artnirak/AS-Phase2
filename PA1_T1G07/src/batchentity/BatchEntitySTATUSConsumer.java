@@ -36,7 +36,7 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "2000");  //in case of rebalance, reprocessing can happen!
+        props.put("auto.commit.interval.ms", "500");  //in case of rebalance, reprocessing can happen!
 
         // Create the consumer using props.
         final Consumer<String, String> consumer
@@ -55,7 +55,7 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
-                        = consumer.poll(1000);
+                        = consumer.poll(100);
 
                 if (consumerRecords.count() == 0) {
                     noRecordsCount++;
@@ -68,6 +68,8 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
+                    String partition = Integer.toString(record.partition());
+                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                     storeData(data);
                 });
