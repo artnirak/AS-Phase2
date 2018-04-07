@@ -1,5 +1,6 @@
 package batchentity;
 
+import static batchentity.StoreData.storeData;
 import gui.BatchEntityUI;
 import interfaces.Constantes;
 import interfaces.ConsumerInterface;
@@ -76,6 +77,7 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String partition = Integer.toString(record.partition());
                     System.out.println("-----------------------------------"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
+                    storeData(data);
                 });
                 consumer.commitSync(rebmon.getCurrentOffsets());
             }
