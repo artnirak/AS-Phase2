@@ -96,7 +96,7 @@ public class ReportData {
         String sql = "INSERT INTO speed (car_id, time, car_reg, speed, localization, max_speed, alarm) VALUES(?,?,?,?,?,?,?)";
         
         try {
-            int speed = Integer.parseInt(report[4]), max_speed = Integer.parseInt(report[7]);
+            int speed = Integer.parseInt(report[4]), max_speed = Integer.parseInt(report[6]);
             
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(report[0]));
