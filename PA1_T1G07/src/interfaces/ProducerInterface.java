@@ -2,7 +2,8 @@ package interfaces;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public interface ProducerInterface {
     public void produceData(String data);

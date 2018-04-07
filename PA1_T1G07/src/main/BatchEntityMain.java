@@ -9,6 +9,7 @@ import interfaces.ConsumerInterface;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class BatchEntityMain {
     public static void main(String[] args) {

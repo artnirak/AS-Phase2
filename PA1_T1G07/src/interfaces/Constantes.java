@@ -4,9 +4,11 @@ import java.nio.file.Paths;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public interface Constantes {
+    
     //Digestion consumer groups
     public static final String HB_DIGESTION_CONSUMER_GROUP = "HB_D_GROUP";
     public static final String SPEED_DIGESTION_CONSUMER_GROUP = "SPEED_D_GROUP";

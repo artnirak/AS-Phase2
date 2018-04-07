@@ -2,7 +2,8 @@ package digestionentity;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class DataEnrichment {
     public static String enrichData(String data) {

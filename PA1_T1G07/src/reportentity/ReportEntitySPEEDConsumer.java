@@ -15,6 +15,7 @@ import rebalancelistener.RebalanceMonitor;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class ReportEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     

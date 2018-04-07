@@ -14,7 +14,8 @@ import java.util.Properties;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class DigestionEntityHBConsumer implements Constantes, ConsumerInterface {
     

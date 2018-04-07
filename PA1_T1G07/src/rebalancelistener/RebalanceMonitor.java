@@ -10,7 +10,8 @@ import org.apache.kafka.common.TopicPartition;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class RebalanceMonitor implements ConsumerRebalanceListener {
     

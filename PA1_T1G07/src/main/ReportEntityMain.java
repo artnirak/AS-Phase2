@@ -10,6 +10,7 @@ import reportentity.ReportEntitySTATUSConsumer;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class ReportEntityMain {
     public static void main(String[] args) {

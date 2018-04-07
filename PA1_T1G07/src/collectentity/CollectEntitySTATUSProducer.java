@@ -21,6 +21,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class CollectEntitySTATUSProducer implements ProducerInterface, Constantes {
 

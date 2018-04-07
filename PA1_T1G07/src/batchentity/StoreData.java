@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class StoreData {
     public static void storeData(String data) {

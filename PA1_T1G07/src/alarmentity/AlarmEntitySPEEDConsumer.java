@@ -13,7 +13,8 @@ import rebalancelistener.RebalanceMonitor;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     

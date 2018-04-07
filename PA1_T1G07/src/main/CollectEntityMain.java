@@ -8,6 +8,7 @@ import collectentity.CollectEntitySTATUSProducer;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class CollectEntityMain {
     public static void main(String[] args) {

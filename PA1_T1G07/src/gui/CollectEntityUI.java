@@ -10,6 +10,7 @@ import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class CollectEntityUI extends javax.swing.JFrame {
 

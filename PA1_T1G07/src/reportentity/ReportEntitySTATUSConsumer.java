@@ -2,7 +2,6 @@ package reportentity;
 
 import gui.ReportEntityUI;
 import interfaces.Constantes;
-import static interfaces.Constantes.STATUS_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
 import java.util.Collections;
 import java.util.Properties;
@@ -15,6 +14,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 /**
  *
  * @author Francisco Lopes 76406
+ * @author Pedro Gusmão 77867
  */
 public class ReportEntitySTATUSConsumer implements Constantes, ConsumerInterface {
     
