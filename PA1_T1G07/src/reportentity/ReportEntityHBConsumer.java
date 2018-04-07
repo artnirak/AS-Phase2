@@ -1,51 +1,53 @@
-package batchentity;
+package reportentity;
 
-import static batchentity.StoreData.storeData;
-import gui.BatchEntityUI;
+import gui.ReportEntityUI;
 import interfaces.Constantes;
+import static interfaces.Constantes.HB_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.util.Collections;
 import java.util.Properties;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
  */
-public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface {
+public class ReportEntityHBConsumer implements Constantes, ConsumerInterface {
     
-    private final static String TOPIC = "EnrichedTopic_3";
+    private final static String TOPIC = "EnrichedTopic_1";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    private final BatchEntityUI beui;
+    private final ReportEntityUI reui;
     private int id;
     
-    public BatchEntitySTATUSConsumer(BatchEntityUI beui, int id) {
-        this.beui = beui;
+    private final ReportData rd;
+    
+    public ReportEntityHBConsumer(ReportEntityUI reui, ReportData rd, int id) {
+        this.reui = reui;
         this.id=id;
+        this.rd=rd;
     }
     
-    public Consumer<String, String> createConsumer() {
+    private Consumer<String,String> createConsumer() {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,STATUS_BATCH_CONSUMER_GROUP);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,HB_BATCH_CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "500");  //in case of rebalance, reprocessing can happen!
 
         // Create the consumer using props.
-        final Consumer<String, String> consumer
-                = new KafkaConsumer<>(props);
+        final Consumer<String,String> consumer;
+        consumer = new KafkaConsumer<>(props);
 
         // Subscribe to the topic.
         consumer.subscribe(Collections.singletonList(TOPIC));
         return consumer;
     }
-
+    
     @Override
     public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
@@ -54,7 +56,7 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
-                        = consumer.poll(100);
+                        = consumer.poll(1000);
 
                 if (consumerRecords.count() == 0) {
                     noRecordsCount++;
@@ -67,14 +69,13 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
-                    String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
-                    beui.appendText(data);
-                    storeData(data);
+                    reui.appendText(data);
+                    rd.updateReport(data);
                 });
 
             }
         }
         System.out.println("DONE");
     }
+
 }

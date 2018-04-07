@@ -144,7 +144,7 @@ public class AlarmEntityUI extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    public void editTableRow(String data) {
+    public synchronized void editTableRow(String data) {
         String[] s = data.split(" ");
         int id = Integer.parseInt(s[0]), speed = Integer.parseInt(s[4]), max_speed = Integer.parseInt(s[6]);
         String status;
