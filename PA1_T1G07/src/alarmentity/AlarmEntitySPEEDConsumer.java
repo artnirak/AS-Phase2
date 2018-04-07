@@ -74,6 +74,7 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String partition = Integer.toString(record.partition());
                     System.out.println("-----------------------------------alarm"+this.id + " - " + record.topic() +" - " + partition);
                     aeui.appendText(data);
+                    aeui.editTableRow(data);
                 });
                 consumer.commitSync(rebmon.getCurrentOffsets());
             }

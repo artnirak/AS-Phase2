@@ -67,8 +67,6 @@ public class BatchEntityHBConsumer implements Constantes, ConsumerInterface {
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
-                    String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                     storeData(data);
                 });
