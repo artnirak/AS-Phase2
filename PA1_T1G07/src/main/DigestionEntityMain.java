@@ -15,8 +15,6 @@ public class DigestionEntityMain {
         
         ProducerInterface hbproducer = new DigestionEntityHBProducer(deui);
         ConsumerInterface hbconsumer_1 = new DigestionEntityHBConsumer(deui, hbproducer,1);
-        ConsumerInterface hbconsumer_2 = new DigestionEntityHBConsumer(deui, hbproducer,2);
-        ConsumerInterface hbconsumer_3 = new DigestionEntityHBConsumer(deui, hbproducer,3);
         
         ProducerInterface speedproducer = new DigestionEntitySPEEDProducer(deui);
         ConsumerInterface speedconsumer_1 = new DigestionEntitySPEEDConsumer(deui, speedproducer,4);
@@ -32,8 +30,6 @@ public class DigestionEntityMain {
         
         //parallel consumption each consumer is atributed a partition
         new Thread(() -> hbconsumer_1.consumeData()).start();
-        new Thread(() -> hbconsumer_2.consumeData()).start();
-        new Thread(() -> hbconsumer_3.consumeData()).start();
         
         new Thread(() -> speedconsumer_1.consumeData()).start();
         new Thread(() -> speedconsumer_2.consumeData()).start();

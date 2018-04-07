@@ -72,7 +72,7 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
                 consumerRecords.forEach(record -> {
                     String data = record.value();
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------"+this.id + " - " + record.topic() +" - " + partition);
+                    System.out.println("-----------------------------------digestion"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

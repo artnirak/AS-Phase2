@@ -74,7 +74,7 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------"+this.id + " - " + record.topic() +" - " + partition);
+                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                 });
                 consumer.commitSync(rebmon.getCurrentOffsets());

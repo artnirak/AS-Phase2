@@ -78,7 +78,7 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------"+this.id + " - " + record.topic() +" - " + partition);
+                    System.out.println("-----------------------------------digestion"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

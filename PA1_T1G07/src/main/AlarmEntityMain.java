@@ -1,8 +1,10 @@
 package main;
 
+import alarmentity.AlarmEntitySPEEDConsumer;
 import collectentity.CollectEntityHBProducer;
 import gui.AlarmEntityUI;
 import interfaces.Constantes;
+import interfaces.ConsumerInterface;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,32 +22,13 @@ public class AlarmEntityMain implements Constantes {
     public static void main(String[] args) {
         AlarmEntityUI aeui = new AlarmEntityUI();
         //TESTING
-        processData(SPEED_FILE, aeui);
+        ConsumerInterface speedconsumer_1 = new AlarmEntitySPEEDConsumer(aeui,4);
+        ConsumerInterface speedconsumer_2 = new AlarmEntitySPEEDConsumer(aeui,5);
+        ConsumerInterface speedconsumer_3 = new AlarmEntitySPEEDConsumer(aeui,6);
+        
+        new Thread(() -> speedconsumer_1.consumeData()).start();
+        new Thread(() -> speedconsumer_2.consumeData()).start();
+        new Thread(() -> speedconsumer_3.consumeData()).start();
     }
-    
-    //METHOD FOR TESTING
-    public static void processData(String filename, AlarmEntityUI aeui) {
-        File file = new File(Paths.get(DATA_PATH, filename).toString());
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String st;
-            String[] s;
-            while ((st = br.readLine()) != null) {
-                //produceData(st);
-                aeui.appendText(st);
-                s = st.split(" ");
-                int id = Integer.parseInt(s[0]), sp = Integer.parseInt(s[3]);
-                if (sp > 100)
-                    aeui.editTableRow(id, "on");
-                else
-                    aeui.editTableRow(id, "off");
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("File " + filename + " not found.");
-            System.exit(1);
-        } catch (IOException ex) {
-            Logger.getLogger(CollectEntityHBProducer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
