@@ -6,6 +6,7 @@ package main;
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        /*
         AlarmEntityMain.main(args);
         Thread.sleep(500);
         BatchEntityMain.main(args);
@@ -15,5 +16,11 @@ public class Main {
         DigestionEntityMain.main(args);
         Thread.sleep(500);
         CollectEntityMain.main(args);   
+*/
+        BatchEntityMain.main(args);
+        Thread.sleep(500);
+        DigestionEntityMain.main(args);
+        Thread.sleep(500);
+        CollectEntityMain.main(args);
     }
 }
