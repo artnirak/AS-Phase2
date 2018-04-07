@@ -103,7 +103,7 @@ public class CollectEntityUI extends javax.swing.JFrame {
 
     public synchronized void appendText(String str) {
         //Smooth update on textarea but slower
-        /*Runnable updateGUI = () -> {
+        Runnable updateGUI = () -> {
             jTextArea1.append(str + "\n");
         };
         Thread t = new Thread(updateGUI);
@@ -112,8 +112,8 @@ public class CollectEntityUI extends javax.swing.JFrame {
             t.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        jTextArea1.append(str + "\n");
+        }
+        //jTextArea1.append(str + "\n");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

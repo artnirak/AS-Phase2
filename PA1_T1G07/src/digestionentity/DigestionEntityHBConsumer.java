@@ -69,7 +69,8 @@ public class DigestionEntityHBConsumer implements Constantes, ConsumerInterface 
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
-                    System.out.println(this.id + " - " + record.partition());
+                    String partition = Integer.toString(record.partition());
+                    System.out.println("-----------------------------------"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

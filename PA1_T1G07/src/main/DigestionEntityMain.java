@@ -19,15 +19,15 @@ public class DigestionEntityMain {
         ConsumerInterface hbconsumer_3 = new DigestionEntityHBConsumer(deui, hbproducer,3);
         
         ProducerInterface speedproducer = new DigestionEntitySPEEDProducer(deui);
-        ConsumerInterface speedconsumer_1 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
-        ConsumerInterface speedconsumer_2 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
-        ConsumerInterface speedconsumer_3 = new DigestionEntitySPEEDConsumer(deui, speedproducer);
+        ConsumerInterface speedconsumer_1 = new DigestionEntitySPEEDConsumer(deui, speedproducer,4);
+        ConsumerInterface speedconsumer_2 = new DigestionEntitySPEEDConsumer(deui, speedproducer,5);
+        ConsumerInterface speedconsumer_3 = new DigestionEntitySPEEDConsumer(deui, speedproducer,6);
         
         
         ProducerInterface statusproducer = new DigestionEntitySTATUSProducer(deui);
-        ConsumerInterface statusconsumer_1 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
-        ConsumerInterface statusconsumer_2 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
-        ConsumerInterface statusconsumer_3 = new DigestionEntitySTATUSConsumer(deui, statusproducer);
+        ConsumerInterface statusconsumer_1 = new DigestionEntitySTATUSConsumer(deui, statusproducer,7);
+        ConsumerInterface statusconsumer_2 = new DigestionEntitySTATUSConsumer(deui, statusproducer,8);
+        ConsumerInterface statusconsumer_3 = new DigestionEntitySTATUSConsumer(deui, statusproducer,9);
         
         
         //parallel consumption each consumer is atributed a partition
