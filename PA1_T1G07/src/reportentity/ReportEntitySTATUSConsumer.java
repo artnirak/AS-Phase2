@@ -1,31 +1,35 @@
-package batchentity;
+package reportentity;
 
-import static batchentity.StoreData.storeData;
-import gui.BatchEntityUI;
+import gui.ReportEntityUI;
 import interfaces.Constantes;
+import static interfaces.Constantes.STATUS_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.util.Collections;
 import java.util.Properties;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
  */
-public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface {
+public class ReportEntitySTATUSConsumer implements Constantes, ConsumerInterface {
     
     private final static String TOPIC = "EnrichedTopic_3";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    private final BatchEntityUI beui;
+    private final ReportEntityUI beui;
     private int id;
     
-    public BatchEntitySTATUSConsumer(BatchEntityUI beui, int id) {
+    private final ReportData rd;
+    
+    public ReportEntitySTATUSConsumer(ReportEntityUI beui, ReportData rd, int id) {
         this.beui = beui;
         this.id=id;
+        this.rd=rd;
     }
     
     public Consumer<String, String> createConsumer() {
@@ -68,13 +72,13 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
+                    System.out.println("-----------------------------------report"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
-                    storeData(data);
+                    rd.updateReport(data);
                 });
 
             }
         }
         System.out.println("DONE");
-    }
+    }    
 }

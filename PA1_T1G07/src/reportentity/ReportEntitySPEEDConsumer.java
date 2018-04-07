@@ -1,32 +1,36 @@
-package batchentity;
+package reportentity;
 
-import static batchentity.StoreData.storeData;
-import gui.BatchEntityUI;
+import gui.ReportEntityUI;
 import interfaces.Constantes;
+import static interfaces.Constantes.SPEED_BATCH_CONSUMER_GROUP;
 import interfaces.ConsumerInterface;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.util.Collections;
 import java.util.Properties;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import rebalancelistener.RebalanceMonitor;
 
 /**
  *
- * @author pedro
+ * @author Francisco Lopes 76406
  */
-public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
+public class ReportEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     
     private final static String TOPIC = "EnrichedTopic_2";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
-    private final BatchEntityUI beui;
+    private final ReportEntityUI reui;
     private int id;
     
-    public BatchEntitySPEEDConsumer(BatchEntityUI beui, int id) {
-        this.beui = beui;
-        this.id = id;
+    private final ReportData rd;
+    
+    public ReportEntitySPEEDConsumer(ReportEntityUI reui, ReportData rd, int id) {
+        this.reui=reui;
+        this.id=id;
+        this.rd=rd;
     }
     
     private Consumer<String, String> createConsumer() {
@@ -45,12 +49,12 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
         
         return consumer;
     }
-
+    
     @Override
     public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
             // Create the rebalance Listener
-            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer, "batch");
+            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer, "report");
         
             // Subscribe to the topic.
             consumer.subscribe(Collections.singletonList(TOPIC), rebmon);
@@ -75,12 +79,13 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
-                    beui.appendText(data);
-                    storeData(data);
+                    System.out.println("-----------------------------------report"+this.id + " - " + record.topic() +" - " + partition);
+                    reui.appendText(data);
+                    rd.updateReport(data);
                 });
                 consumer.commitSync(rebmon.getCurrentOffsets());
             }
         }
     }
+    
 }

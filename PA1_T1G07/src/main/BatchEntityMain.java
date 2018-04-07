@@ -13,6 +13,7 @@ import interfaces.ConsumerInterface;
 public class BatchEntityMain {
     public static void main(String[] args) {
         BatchEntityUI beui = new BatchEntityUI();
+        
         ConsumerInterface hbconsumer_1 = new BatchEntityHBConsumer(beui,1);
         
         ConsumerInterface speedconsumer_1 = new BatchEntitySPEEDConsumer(beui,4);

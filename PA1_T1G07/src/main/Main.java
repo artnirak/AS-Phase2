@@ -10,7 +10,8 @@ public class Main {
         Thread.sleep(500);
         BatchEntityMain.main(args);
         Thread.sleep(500);
-        //ReportEntityMain.main(args);
+        ReportEntityMain.main(args);
+        Thread.sleep(500);
         DigestionEntityMain.main(args);
         Thread.sleep(500);
         CollectEntityMain.main(args);   
