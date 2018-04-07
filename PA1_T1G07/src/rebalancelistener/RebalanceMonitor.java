@@ -16,10 +16,12 @@ public class RebalanceMonitor implements ConsumerRebalanceListener {
     
     private final KafkaConsumer consumer;
     private final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap();
+    private final String entity;
     
-    public RebalanceMonitor(KafkaConsumer consumer)
+    public RebalanceMonitor(KafkaConsumer consumer, String entity)
     {
         this.consumer = consumer;
+        this.entity=entity;
     }
     
     public void addOffset(String topic, int partition, long offset)
@@ -36,12 +38,12 @@ public class RebalanceMonitor implements ConsumerRebalanceListener {
     public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
         System.out.println("Revoked partitions:");
         partitions.forEach((part) -> {
-            System.out.println(part.partition()+"; ");
+            System.out.println(this.entity+ "- "+part.partition()+"; ");
         });
         
         System.out.println("Comitted partitions:");
         currentOffsets.keySet().forEach((tp) -> {
-            System.out.println(tp.partition()+"; ");
+            System.out.println(this.entity+ "- " +tp.partition()+"; ");
         });
         
         consumer.commitSync(currentOffsets);
@@ -52,7 +54,7 @@ public class RebalanceMonitor implements ConsumerRebalanceListener {
     public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
         System.out.println("Assigned partitions:");
         partitions.forEach((part) -> {
-            System.out.println(part.partition()+"; ");
+            System.out.println(this.entity+ "- " +part.partition()+"; ");
         });
     }
     

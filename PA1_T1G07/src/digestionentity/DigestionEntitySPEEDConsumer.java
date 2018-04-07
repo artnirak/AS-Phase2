@@ -53,7 +53,7 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
     public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
             // Create the rebalance Listener
-            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer);
+            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer, "digestion");
         
             // Subscribe to the topic.
             consumer.subscribe(Collections.singletonList(TOPIC), rebmon);

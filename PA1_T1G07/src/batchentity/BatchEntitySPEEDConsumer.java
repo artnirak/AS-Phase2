@@ -50,7 +50,7 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
             // Create the rebalance Listener
-            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer);
+            RebalanceMonitor rebmon = new RebalanceMonitor((KafkaConsumer) consumer, "batch");
         
             // Subscribe to the topic.
             consumer.subscribe(Collections.singletonList(TOPIC), rebmon);
