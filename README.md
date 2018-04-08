@@ -1,10 +1,13 @@
 Practical Assignment I – Kafka
 
-O script gerado está configurado para se passar o path absoluto até ao diretório do kafka
+O script gerado está configurado para se passar o path absoluto até ao diretório do kafka.
 
-É necessário usar os ficheiros server.properties fornecidos e passá-los para o diretório config/ do kafka
-Adicionar os JARs do diretório lib/ às bibliotecas do projeto
+É necessário usar os ficheiros server.properties fornecidos e passá-los para o diretório config/ do kafka.  
+Adicionar os JARs do diretório lib/ às bibliotecas do projeto.  
 
-Para a base de dados foi usado sqlite3, onde será necessário descarregar o JAR disponível em:
-https://bitbucket.org/xerial/sqlite-jdbc/downloads/
-De seguida, é necessário adicionar o JAR às bibliotecas do projeto
+Para a base de dados foi usado sqlite3, onde será necessário descarregar o JAR disponível em:  
+https://bitbucket.org/xerial/sqlite-jdbc/downloads/.  
+De seguida, é necessário adicionar o JAR às bibliotecas do projeto.  
+
+A visualização da base de dados pode ser feita instalando o sqlite3 no Ubuntu usando o comando  
+sudo apt-get install sqlite3
