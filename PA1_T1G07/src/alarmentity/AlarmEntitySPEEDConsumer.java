@@ -52,22 +52,11 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
         
             // Subscribe to the topic.
             consumer.subscribe(Collections.singletonList(TOPIC), rebmon);
-            
-            final int giveUp = 100;
-            int noRecordsCount = 0;
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
                         = consumer.poll(1000);
 
-                if (consumerRecords.count() == 0) {
-                    noRecordsCount++;
-                    if (noRecordsCount > giveUp) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
