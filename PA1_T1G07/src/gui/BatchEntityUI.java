@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.DefaultCaret;
 import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 
@@ -97,7 +99,16 @@ public class BatchEntityUI extends javax.swing.JFrame {
     }
     
     public void appendText(String str) {
-        jTextArea1.append(str + "\n");
+        Runnable updateGUI = () -> {
+            jTextArea1.append(str + "\n");
+        };
+        Thread t = new Thread(updateGUI);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

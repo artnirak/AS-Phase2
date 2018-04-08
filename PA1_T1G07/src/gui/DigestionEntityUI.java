@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.DefaultCaret;
 import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 
@@ -109,7 +111,6 @@ public class DigestionEntityUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
     private void main() {
         /* Set the Nimbus look and feel
          * If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -124,20 +125,38 @@ public class DigestionEntityUI extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DigestionEntityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         DefaultCaret caret1 = (DefaultCaret) jTextArea1.getCaret();
         caret1.setUpdatePolicy(ALWAYS_UPDATE);
         DefaultCaret caret2 = (DefaultCaret) jTextArea2.getCaret();
         caret2.setUpdatePolicy(ALWAYS_UPDATE);
         this.setVisible(true);
     }
-    
+
     public void appendReceived(String str) {
-        jTextArea1.append(str + "\n");
+        Runnable updateGUI = () -> {
+            jTextArea1.append(str + "\n");
+        };
+        Thread t = new Thread(updateGUI);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     public void appendSent(String str) {
-        jTextArea2.append(str + "\n");
+        Runnable updateGUI = () -> {
+            jTextArea2.append(str + "\n");
+        };
+        Thread t = new Thread(updateGUI);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

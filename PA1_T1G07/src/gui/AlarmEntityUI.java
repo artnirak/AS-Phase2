@@ -175,7 +175,16 @@ public class AlarmEntityUI extends javax.swing.JFrame {
     }
 
     public synchronized void appendText(String str) {
-        jTextArea1.append(str + "\n");
+        Runnable updateGUI = () -> {
+            jTextArea1.append(str + "\n");
+        };
+        Thread t = new Thread(updateGUI);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CollectEntityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private javax.swing.table.DefaultTableModel dtm;
