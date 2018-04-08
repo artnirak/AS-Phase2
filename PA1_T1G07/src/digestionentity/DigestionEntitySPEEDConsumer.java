@@ -25,12 +25,10 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
 
     private final DigestionEntityUI deui;
     private final ProducerInterface producer;
-    private int id;
     
-    public DigestionEntitySPEEDConsumer(DigestionEntityUI deui, ProducerInterface producer, int id) {
+    public DigestionEntitySPEEDConsumer(DigestionEntityUI deui, ProducerInterface producer) {
         this.deui = deui;
         this.producer = producer;
-        this.id = id;
     }
     
     private Consumer<String, String> createConsumer() {
@@ -68,7 +66,6 @@ public class DigestionEntitySPEEDConsumer implements Constantes, ConsumerInterfa
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------digestion"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

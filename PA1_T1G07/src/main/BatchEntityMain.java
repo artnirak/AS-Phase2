@@ -15,15 +15,15 @@ public class BatchEntityMain {
     public static void main(String[] args) {
         BatchEntityUI beui = new BatchEntityUI();
         
-        ConsumerInterface hbconsumer_1 = new BatchEntityHBConsumer(beui,1);
+        ConsumerInterface hbconsumer_1 = new BatchEntityHBConsumer(beui);
         
-        ConsumerInterface speedconsumer_1 = new BatchEntitySPEEDConsumer(beui,4);
-        ConsumerInterface speedconsumer_2 = new BatchEntitySPEEDConsumer(beui,5);
-        ConsumerInterface speedconsumer_3 = new BatchEntitySPEEDConsumer(beui,6);
+        ConsumerInterface speedconsumer_1 = new BatchEntitySPEEDConsumer(beui);
+        ConsumerInterface speedconsumer_2 = new BatchEntitySPEEDConsumer(beui);
+        ConsumerInterface speedconsumer_3 = new BatchEntitySPEEDConsumer(beui);
         
-        ConsumerInterface statusconsumer_1 = new BatchEntitySTATUSConsumer(beui,7);
-        ConsumerInterface statusconsumer_2 = new BatchEntitySTATUSConsumer(beui,8);
-        ConsumerInterface statusconsumer_3 = new BatchEntitySTATUSConsumer(beui,9);
+        ConsumerInterface statusconsumer_1 = new BatchEntitySTATUSConsumer(beui);
+        ConsumerInterface statusconsumer_2 = new BatchEntitySTATUSConsumer(beui);
+        ConsumerInterface statusconsumer_3 = new BatchEntitySTATUSConsumer(beui);
         
         //parallel consumption each consumer is atributed a partition
         new Thread(() -> hbconsumer_1.consumeData()).start();

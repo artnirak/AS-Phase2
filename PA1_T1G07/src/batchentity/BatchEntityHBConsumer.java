@@ -22,11 +22,9 @@ public class BatchEntityHBConsumer implements Constantes, ConsumerInterface {
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final BatchEntityUI beui;
-    private int id;
-
-    public BatchEntityHBConsumer(BatchEntityUI beui, int id) {
+    
+    public BatchEntityHBConsumer(BatchEntityUI beui) {
         this.beui = beui;
-        this.id = id;
     }
 
     private Consumer<String, String> createConsumer() {

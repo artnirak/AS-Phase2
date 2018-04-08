@@ -23,11 +23,9 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final BatchEntityUI beui;
-    private int id;
     
-    public BatchEntitySPEEDConsumer(BatchEntityUI beui, int id) {
+    public BatchEntitySPEEDConsumer(BatchEntityUI beui) {
         this.beui = beui;
-        this.id = id;
     }
     
     private Consumer<String, String> createConsumer() {
@@ -65,7 +63,6 @@ public class BatchEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                     storeData(data);
                 });

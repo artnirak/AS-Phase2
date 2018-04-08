@@ -22,11 +22,9 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final BatchEntityUI beui;
-    private int id;
     
-    public BatchEntitySTATUSConsumer(BatchEntityUI beui, int id) {
+    public BatchEntitySTATUSConsumer(BatchEntityUI beui) {
         this.beui = beui;
-        this.id=id;
     }
     
     public Consumer<String, String> createConsumer() {
@@ -58,7 +56,6 @@ public class BatchEntitySTATUSConsumer implements Constantes, ConsumerInterface 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------batch"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                     storeData(data);
                 });

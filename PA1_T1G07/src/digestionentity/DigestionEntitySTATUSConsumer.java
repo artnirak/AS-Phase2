@@ -25,12 +25,10 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
 
     private final DigestionEntityUI deui;
     private final ProducerInterface producer;
-    private int id;
     
-    public DigestionEntitySTATUSConsumer(DigestionEntityUI deui, ProducerInterface producer,int id) {
+    public DigestionEntitySTATUSConsumer(DigestionEntityUI deui, ProducerInterface producer) {
         this.deui = deui;
         this.producer = producer;
-        this.id=id;
     }
     
     public Consumer<String, String> createConsumer() {
@@ -73,7 +71,6 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
                 consumerRecords.forEach(record -> {
                     String data = record.value();
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------digestion"+this.id + " - " + record.topic() +" - " + partition);
                     deui.appendReceived(data);
                     producer.produceData(enrichData(data));
                 });

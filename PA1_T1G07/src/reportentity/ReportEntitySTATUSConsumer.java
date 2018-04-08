@@ -22,13 +22,11 @@ public class ReportEntitySTATUSConsumer implements Constantes, ConsumerInterface
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final ReportEntityUI beui;
-    private int id;
     
     private final ReportData rd;
     
-    public ReportEntitySTATUSConsumer(ReportEntityUI beui, ReportData rd, int id) {
+    public ReportEntitySTATUSConsumer(ReportEntityUI beui, ReportData rd) {
         this.beui = beui;
-        this.id=id;
         this.rd=rd;
     }
     
@@ -61,7 +59,6 @@ public class ReportEntitySTATUSConsumer implements Constantes, ConsumerInterface
                 consumerRecords.forEach(record -> {
                     String data = record.value();
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------report"+this.id + " - " + record.topic() +" - " + partition);
                     beui.appendText(data);
                     rd.updateReport(data);
                 });

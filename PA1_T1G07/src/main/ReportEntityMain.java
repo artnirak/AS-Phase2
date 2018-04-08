@@ -17,15 +17,15 @@ public class ReportEntityMain {
         ReportEntityUI reui = new ReportEntityUI();
         ReportData rd = new ReportData("report.db");
         
-        ConsumerInterface hbconsumer_1 = new ReportEntityHBConsumer(reui,rd,1);
+        ConsumerInterface hbconsumer_1 = new ReportEntityHBConsumer(reui,rd);
         
-        ConsumerInterface speedconsumer_1 = new ReportEntitySPEEDConsumer(reui,rd,4);
-        ConsumerInterface speedconsumer_2 = new ReportEntitySPEEDConsumer(reui,rd,5);
-        ConsumerInterface speedconsumer_3 = new ReportEntitySPEEDConsumer(reui,rd,6);
+        ConsumerInterface speedconsumer_1 = new ReportEntitySPEEDConsumer(reui,rd);
+        ConsumerInterface speedconsumer_2 = new ReportEntitySPEEDConsumer(reui,rd);
+        ConsumerInterface speedconsumer_3 = new ReportEntitySPEEDConsumer(reui,rd);
         
-        ConsumerInterface statusconsumer_1 = new ReportEntitySTATUSConsumer(reui,rd,7);
-        ConsumerInterface statusconsumer_2 = new ReportEntitySTATUSConsumer(reui,rd,8);
-        ConsumerInterface statusconsumer_3 = new ReportEntitySTATUSConsumer(reui,rd,9);
+        ConsumerInterface statusconsumer_1 = new ReportEntitySTATUSConsumer(reui,rd);
+        ConsumerInterface statusconsumer_2 = new ReportEntitySTATUSConsumer(reui,rd);
+        ConsumerInterface statusconsumer_3 = new ReportEntitySTATUSConsumer(reui,rd);
         
         //parallel consumption each consumer is atributed a partition
         new Thread(() -> hbconsumer_1.consumeData()).start();

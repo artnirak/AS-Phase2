@@ -14,9 +14,9 @@ public class AlarmEntityMain implements Constantes {
     public static void main(String[] args) {
         AlarmEntityUI aeui = new AlarmEntityUI();
         
-        ConsumerInterface speedconsumer_1 = new AlarmEntitySPEEDConsumer(aeui,4);
-        ConsumerInterface speedconsumer_2 = new AlarmEntitySPEEDConsumer(aeui,5);
-        ConsumerInterface speedconsumer_3 = new AlarmEntitySPEEDConsumer(aeui,6);
+        ConsumerInterface speedconsumer_1 = new AlarmEntitySPEEDConsumer(aeui);
+        ConsumerInterface speedconsumer_2 = new AlarmEntitySPEEDConsumer(aeui);
+        ConsumerInterface speedconsumer_3 = new AlarmEntitySPEEDConsumer(aeui);
         
         new Thread(() -> speedconsumer_1.consumeData()).start();
         new Thread(() -> speedconsumer_2.consumeData()).start();

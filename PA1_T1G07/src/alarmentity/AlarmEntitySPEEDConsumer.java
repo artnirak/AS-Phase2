@@ -22,11 +22,9 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final AlarmEntityUI aeui;
-    private final int id;
     
-    public AlarmEntitySPEEDConsumer(AlarmEntityUI aeui, int id) {
+    public AlarmEntitySPEEDConsumer(AlarmEntityUI aeui) {
         this.aeui = aeui;
-        this.id = id;
     }
     
     private Consumer<String, String> createConsumer() {
@@ -62,7 +60,6 @@ public class AlarmEntitySPEEDConsumer implements Constantes, ConsumerInterface {
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------alarm"+this.id + " - " + record.topic() +" - " + partition);
                     aeui.appendText(data);
                     aeui.editTableRow(data);
                 });

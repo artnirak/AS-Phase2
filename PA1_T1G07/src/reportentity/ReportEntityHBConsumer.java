@@ -22,13 +22,11 @@ public class ReportEntityHBConsumer implements Constantes, ConsumerInterface {
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final ReportEntityUI reui;
-    private int id;
     
     private final ReportData rd;
     
-    public ReportEntityHBConsumer(ReportEntityUI reui, ReportData rd, int id) {
+    public ReportEntityHBConsumer(ReportEntityUI reui, ReportData rd) {
         this.reui = reui;
-        this.id=id;
         this.rd=rd;
     }
     

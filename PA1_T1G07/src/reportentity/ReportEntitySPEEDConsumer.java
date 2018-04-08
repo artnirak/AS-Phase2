@@ -23,13 +23,11 @@ public class ReportEntitySPEEDConsumer implements Constantes, ConsumerInterface 
     private final static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
 
     private final ReportEntityUI reui;
-    private int id;
     
     private final ReportData rd;
     
-    public ReportEntitySPEEDConsumer(ReportEntityUI reui, ReportData rd, int id) {
+    public ReportEntitySPEEDConsumer(ReportEntityUI reui, ReportData rd) {
         this.reui=reui;
-        this.id=id;
         this.rd=rd;
     }
     
@@ -67,7 +65,6 @@ public class ReportEntitySPEEDConsumer implements Constantes, ConsumerInterface 
                     String data = record.value();
                     rebmon.addOffset(record.topic(), record.partition(), record.offset());
                     String partition = Integer.toString(record.partition());
-                    System.out.println("-----------------------------------report"+this.id + " - " + record.topic() +" - " + partition);
                     reui.appendText(data);
                     rd.updateReport(data);
                 });
