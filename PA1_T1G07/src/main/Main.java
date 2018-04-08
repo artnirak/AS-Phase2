@@ -8,13 +8,13 @@ package main;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         AlarmEntityMain.main(args);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         BatchEntityMain.main(args);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         ReportEntityMain.main(args);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         DigestionEntityMain.main(args);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         CollectEntityMain.main(args);
     }
 }

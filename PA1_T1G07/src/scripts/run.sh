@@ -20,7 +20,7 @@ xterm -T "node 1" -hold -e "cd ${kafka_home}; bin/kafka-server-start.sh config/s
 xterm -T "node 2" -hold -e "cd ${kafka_home}; bin/kafka-server-start.sh config/server-2.properties" &
 
 
-sleep 5
+sleep 7
 
 xterm -T "enrichgeneral" -hold -e "cd ${kafka_home};bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic EnrichTopic_1;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 3 --topic EnrichTopic_2;bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 3 --topic EnrichTopic_3 " &
 

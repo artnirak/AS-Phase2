@@ -59,7 +59,7 @@ public class DigestionEntitySTATUSConsumer implements Constantes, ConsumerInterf
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
-                        = consumer.poll(100);
+                        = consumer.poll(1000);
 
                 if (consumerRecords.count() == 0) {
                     noRecordsCount++;

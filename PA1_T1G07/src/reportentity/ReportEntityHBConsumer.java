@@ -51,21 +51,10 @@ public class ReportEntityHBConsumer implements Constantes, ConsumerInterface {
     @Override
     public void consumeData() {
         try (Consumer<String, String> consumer = createConsumer()) {
-            final int giveUp = 100;
-            int noRecordsCount = 0;
 
             while (true) {
                 final ConsumerRecords<String, String> consumerRecords
                         = consumer.poll(1000);
-
-                if (consumerRecords.count() == 0) {
-                    noRecordsCount++;
-                    if (noRecordsCount > giveUp) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
                 
                 consumerRecords.forEach(record -> {
                     String data = record.value();
@@ -75,7 +64,6 @@ public class ReportEntityHBConsumer implements Constantes, ConsumerInterface {
 
             }
         }
-        System.out.println("DONE");
     }
 
 }
